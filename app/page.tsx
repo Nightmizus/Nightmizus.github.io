@@ -88,7 +88,7 @@ export default function Home() {
       <header className="nav-shell">
         <a className="wordmark" href="#top" aria-label="返回顶部">
           <Image className="brand-avatar" src="/mizu-avatar.jpg" alt="水澄Mizu" width={34} height={34} priority />
-          <strong>mizusumi</strong>
+          <strong>水澄Mizu的个人主页</strong>
         </a>
         <nav aria-label="主导航">
           <a href="#websites">网站</a>

@@ -43,7 +43,7 @@ summary { font: inherit; }
   backdrop-filter: blur(18px);
 }
 .wordmark { display: flex; align-items: center; gap: 11px; width: max-content; }
-.wordmark strong { font-size: 24px; letter-spacing: -.045em; }
+.wordmark strong { font-size: 20px; letter-spacing: -.04em; white-space: nowrap; }
 .brand-avatar { width: 34px; height: 34px; border: var(--stroke) solid var(--line-strong); border-radius: 50%; object-fit: cover; }
 .nav-shell nav { display: flex; align-items: center; gap: clamp(25px, 4vw, 58px); font-size: 14px; }
 .nav-shell nav a { color: #cbd4d0; transition: color .2s ease; }
@@ -185,7 +185,7 @@ summary { font: inherit; }
 @media (max-width: 680px) {
   .nav-shell { height: 62px; padding-left: max(12px, env(safe-area-inset-left)); padding-right: max(12px, env(safe-area-inset-right)); gap: 12px; }
   .wordmark { gap: 8px; }
-  .wordmark strong { font-size: 18px; }
+  .wordmark strong { font-size: 15px; }
   .brand-avatar { width: 30px; height: 30px; }
   .lang { display: none; }
   .console-button { min-height: 40px; padding: 0 13px; font-size: 11px; }
