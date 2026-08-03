@@ -39,8 +39,8 @@ type Website = {
 const websites: Website[] = [
   {
     name: "水澄Mizu的个人主页",
-    url: "nightmizus.github.io",
-    href: "https://nightmizus.github.io",
+    url: "mizusumi.com",
+    href: "https://mizusumi.com",
     owners: [{ name: "水澄Mizu", github: "https://github.com/Nightmizus" }],
     status: "在线",
   },
