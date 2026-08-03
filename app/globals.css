@@ -116,7 +116,7 @@ summary { font: inherit; }
 .table-row > span:last-child { border-right: 0; }
 .table-head { color: #728078; font: 10px var(--mono); text-transform: uppercase; }
 .table-head > span { min-height: 46px; }
-.site-row { min-height: 105px; transition: background .2s ease; }
+.site-row { min-height: 90px; transition: background .2s ease; }
 .site-row:hover { background: rgba(122, 133, 186, .12); }
 .site-row > span:first-child { gap: 18px; }
 .site-row > span:first-child i { color: #66736d; font: normal 10px var(--mono); }

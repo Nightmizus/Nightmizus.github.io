@@ -104,7 +104,7 @@ export default function Home() {
         <div className="hero-glow" />
         <div className="hero-content">
           <div className="hero-copy">
-            <p className="terminal-label">[ 创作 · 开发 · 折腾 ]</p>
+            <p className="terminal-label">[ 创作 · 开发 ]</p>
             <h1 id="hero-title"><span>水澄Mizu的</span><span>个人主页</span></h1>
             <p className="hero-accent">将 <span>创意</span> 落地。</p>
             <div className="hero-buttons">
