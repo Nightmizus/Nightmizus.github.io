@@ -8,13 +8,51 @@ const contacts = [
   { id: "05", label: "邮箱", value: "Nightmizus@gmail.com", note: "合作与正式联系", href: "mailto:Nightmizus@gmail.com" },
 ];
 
-const websites = [
+type WebsiteOwner = {
+  name: string;
+  github: string;
+  role?: "开发" | "维护";
+};
+
+type Website = {
+  name: string;
+  url: string;
+  href: string;
+  owners: WebsiteOwner[];
+  status: "在线";
+};
+
+const websites: Website[] = [
   {
     name: "水澄Mizu的个人主页",
     url: "nightmizus.github.io",
     href: "https://nightmizus.github.io",
-    owner: "独立开发与维护",
-    status: "迭代中",
+    owners: [{ name: "水澄Mizu", github: "https://github.com/Nightmizus" }],
+    status: "在线",
+  },
+  {
+    name: "Mizusumi的图寻地图",
+    url: "map.mizusumi.com",
+    href: "https://map.mizusumi.com",
+    owners: [{ name: "水澄Mizu", github: "https://github.com/Nightmizus" }],
+    status: "在线",
+  },
+  {
+    name: "Music Mizu",
+    url: "music.mizusumi.com",
+    href: "https://music.mizusumi.com",
+    owners: [
+      { name: "水澄Mizu", github: "https://github.com/Nightmizus", role: "开发" },
+      { name: "shi_zwd", github: "https://github.com/shizwd", role: "维护" },
+    ],
+    status: "在线",
+  },
+  {
+    name: "Cowtypes",
+    url: "cowtypes.mizusumi.com",
+    href: "https://cowtypes.mizusumi.com",
+    owners: [{ name: "PrintfCow", github: "https://github.com/PrintfCow" }],
+    status: "在线",
   },
 ];
 
@@ -81,13 +119,6 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="request-bar" aria-label="当前页面请求状态">
-          <span className="method">GET</span>
-          <code>nightmizus.github.io/index</code>
-          <span className="request-separator" />
-          <span className="latency">ϟ ONLINE</span>
-          <span className="copy-icon" aria-hidden="true">◎</span>
-        </div>
       </section>
 
       <section className="websites technical-grid" id="websites" aria-labelledby="websites-title">
@@ -104,12 +135,21 @@ export default function Home() {
             <span role="columnheader">状态</span>
           </div>
           {websites.map((site, index) => (
-            <a className="table-row site-row" role="row" href={site.href} target="_blank" rel="noreferrer" key={site.name}>
-              <span role="cell" data-label="名称"><i>{String(index + 1).padStart(2, "0")}</i><strong>{site.name}</strong></span>
-              <span role="cell" data-label="网址"><code>{site.url}</code><b>↗</b></span>
-              <span role="cell" data-label="开发与维护">{site.owner}</span>
+            <div className="table-row site-row" role="row" key={site.name}>
+              <span role="cell" data-label="名称"><i>{String(index + 1).padStart(2, "0")}</i><a className="site-name" href={site.href} target="_blank" rel="noreferrer"><strong>{site.name}</strong></a></span>
+              <span role="cell" data-label="网址"><a className="site-url" href={site.href} target="_blank" rel="noreferrer"><code>{site.url}</code><b>↗</b></a></span>
+              <span role="cell" data-label="开发与维护">
+                <span className="owner-list">
+                  {site.owners.map((owner) => (
+                    <a className="owner-link" href={owner.github} target="_blank" rel="noreferrer" key={owner.name}>
+                      <span>{owner.name}</span>
+                      {owner.role ? <small className="owner-tag">{owner.role}</small> : null}
+                    </a>
+                  ))}
+                </span>
+              </span>
               <span role="cell" data-label="状态"><em><i />{site.status}</em></span>
-            </a>
+            </div>
           ))}
         </div>
       </section>
