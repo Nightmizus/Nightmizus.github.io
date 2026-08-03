@@ -106,12 +106,22 @@ export default function Home() {
           <div className="hero-copy">
             <p className="terminal-label">[ 创作 · 开发 ]</p>
             <h1 id="hero-title"><span>水澄Mizu的</span><span>个人主页</span></h1>
-            <div className="hero-transform" aria-label="将想法变为网页，将创意变为视频，将工具变为APP，把灵感变为现实">
-              <div className="transform-lines" aria-hidden="true">
-                <p className="transform-line"><span className="transform-connector">将</span><strong className="transform-key left">想法</strong><span className="transform-connector">变为</span><strong className="transform-key right">网页</strong></p>
-                <p className="transform-line"><span className="transform-connector">将</span><strong className="transform-key left">创意</strong><span className="transform-connector">变为</span><strong className="transform-key right">视频</strong></p>
-                <p className="transform-line"><span className="transform-connector">将</span><strong className="transform-key left">工具</strong><span className="transform-connector">变为</span><strong className="transform-key right">APP</strong></p>
-                <p className="transform-line"><span className="transform-connector">把</span><strong className="transform-key left">灵感</strong><span className="transform-connector">变为</span><strong className="transform-key right">现实</strong></p>
+            <div className="hero-transform" aria-label="将想法变为网页，将创意变为视频，将工具变为APP，将灵感变为现实">
+              <div className="transform-sentence" aria-hidden="true">
+                <span className="transform-connector">将</span>
+                <span className="transform-slot left">
+                  <strong className="transform-word">想法</strong>
+                  <strong className="transform-word">创意</strong>
+                  <strong className="transform-word">工具</strong>
+                  <strong className="transform-word">灵感</strong>
+                </span>
+                <span className="transform-connector">变为</span>
+                <span className="transform-slot right">
+                  <strong className="transform-word">网页</strong>
+                  <strong className="transform-word">视频</strong>
+                  <strong className="transform-word">APP</strong>
+                  <strong className="transform-word">现实</strong>
+                </span>
               </div>
             </div>
             <div className="hero-buttons">
