@@ -83,14 +83,17 @@ summary { font: inherit; }
 .contact-stack { display: grid; grid-template-rows: repeat(5, minmax(54px, auto)); }
 .contact-row { border-bottom: var(--stroke) solid var(--line); overflow: hidden; transition: background .2s ease; }
 .contact-row:last-child { border-bottom: 0; }
-.contact-row:hover, .contact-row[open] { background: rgba(122, 133, 186, .12); }
-.contact-row summary { min-height: 54px; padding: 0 18px; display: grid; grid-template-columns: 38px 1fr 24px; align-items: center; list-style: none; cursor: pointer; }
-.contact-row summary::-webkit-details-marker { display: none; }
+.contact-row:hover, .contact-row.is-open { background: rgba(122, 133, 186, .12); }
+.contact-summary { width: 100%; min-height: 54px; padding: 0 18px; display: grid; grid-template-columns: 38px 1fr 24px; align-items: center; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.contact-summary:focus-visible { outline: 1px solid var(--green); outline-offset: -3px; }
 .row-id { color: #728078; font: 10px var(--mono); }
-.contact-row summary strong { font-size: 15px; font-weight: 500; }
+.contact-summary strong { font-size: 15px; font-weight: 500; }
 .row-plus { width: 22px; height: 22px; display: grid; place-items: center; border: var(--stroke) solid var(--line-strong); border-radius: 50%; color: var(--green); transition: transform .2s ease; }
-.contact-row:hover .row-plus, .contact-row[open] .row-plus { transform: rotate(45deg); }
-.row-detail { padding: 6px 18px 14px 56px; color: var(--green-soft); }
+.contact-row:hover .row-plus, .contact-row.is-open .row-plus { transform: rotate(45deg); }
+.contact-panel { display: grid; grid-template-rows: 0fr; opacity: 0; visibility: hidden; transition: grid-template-rows .34s cubic-bezier(.22, 1, .36, 1), opacity .22s ease, visibility 0s linear .34s; }
+.contact-row.is-open .contact-panel { grid-template-rows: 1fr; opacity: 1; visibility: visible; transition-delay: 0s; }
+.row-detail { min-height: 0; overflow: hidden; padding: 0 18px 0 56px; color: var(--green-soft); transition: padding .34s cubic-bezier(.22, 1, .36, 1); }
+.contact-row.is-open .row-detail { padding-top: 6px; padding-bottom: 14px; }
 .contact-profile { width: 100%; display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; align-items: center; gap: 12px; }
 .contact-profile img { width: 48px; height: 48px; border: var(--stroke) solid var(--line-strong); border-radius: 3px; object-fit: cover; }
 .contact-profile > span { min-width: 0; display: flex; flex-direction: column; gap: 5px; }

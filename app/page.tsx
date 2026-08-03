@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 
 type Contact = {
   id: string;
@@ -80,6 +81,8 @@ function FrameHandles() {
 }
 
 export default function Home() {
+  const [openContact, setOpenContact] = useState<string | null>(null);
+
   return (
     <main>
       <header className="nav-shell">
@@ -119,36 +122,55 @@ export default function Home() {
               <span>CONTACT_CHANNELS</span>
             </div>
             <div className="contact-stack">
-              {contacts.map((item) => (
-                <details className="contact-row" key={item.label}>
-                  <summary>
-                    <span className="row-id">{item.id}</span>
-                    <strong>{item.label}</strong>
-                    <span className="row-plus">+</span>
-                  </summary>
-                  <div className="row-detail">
-                    {item.avatar && item.nickname && item.identifier ? (
-                      item.href ? (
-                        <a className="contact-profile" href={item.href} target="_blank" rel="noreferrer">
-                          <Image src={item.avatar} alt={`${item.nickname}的头像`} width={48} height={48} />
-                          <span><strong>{item.nickname}</strong><small>{item.identifier}</small></span>
-                          <b aria-hidden="true">↗</b>
-                        </a>
-                      ) : (
-                        <div className="contact-profile">
-                          <Image src={item.avatar} alt={`${item.nickname}的头像`} width={48} height={48} />
-                          <span><strong>{item.nickname}</strong><small>{item.identifier}</small></span>
-                        </div>
-                      )
-                    ) : (
-                      <div className="email-detail">
-                        <a href={item.href}>{item.value} <span>↗</span></a>
-                        <small>{item.note}</small>
+              {contacts.map((item) => {
+                const isOpen = openContact === item.label;
+
+                return (
+                  <div className={`contact-row${isOpen ? " is-open" : ""}`} key={item.label}>
+                    <button
+                      className="contact-summary"
+                      type="button"
+                      aria-expanded={isOpen}
+                      aria-controls={`contact-panel-${item.id}`}
+                      id={`contact-trigger-${item.id}`}
+                      onClick={() => setOpenContact(isOpen ? null : item.label)}
+                    >
+                      <span className="row-id">{item.id}</span>
+                      <strong>{item.label}</strong>
+                      <span className="row-plus" aria-hidden="true">+</span>
+                    </button>
+                    <div
+                      className="contact-panel"
+                      id={`contact-panel-${item.id}`}
+                      role="region"
+                      aria-labelledby={`contact-trigger-${item.id}`}
+                      aria-hidden={!isOpen}
+                    >
+                      <div className="row-detail">
+                        {item.avatar && item.nickname && item.identifier ? (
+                          item.href ? (
+                            <a className="contact-profile" href={item.href} target="_blank" rel="noreferrer">
+                              <Image src={item.avatar} alt={`${item.nickname}的头像`} width={48} height={48} />
+                              <span><strong>{item.nickname}</strong><small>{item.identifier}</small></span>
+                              <b aria-hidden="true">↗</b>
+                            </a>
+                          ) : (
+                            <div className="contact-profile">
+                              <Image src={item.avatar} alt={`${item.nickname}的头像`} width={48} height={48} />
+                              <span><strong>{item.nickname}</strong><small>{item.identifier}</small></span>
+                            </div>
+                          )
+                        ) : (
+                          <div className="email-detail">
+                            <a href={item.href}>{item.value} <span>↗</span></a>
+                            <small>{item.note}</small>
+                          </div>
+                        )}
                       </div>
-                    )}
+                    </div>
                   </div>
-                </details>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
