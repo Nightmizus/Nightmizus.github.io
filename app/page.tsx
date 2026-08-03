@@ -39,11 +39,10 @@ export default function Home() {
         <nav aria-label="主导航">
           <a href="#websites">网站</a>
           <a href="#projects">项目</a>
-          <a href="#contact">联系</a>
         </nav>
         <div className="nav-actions">
           <span className="lang">CN</span>
-          <a className="console-button" href="#contact">找到我 <span>→</span></a>
+          <a className="console-button" href="mailto:Nightmizus@gmail.com">找到我 <span>→</span></a>
         </div>
       </header>
 
@@ -54,19 +53,15 @@ export default function Home() {
             <p className="terminal-label">[ 创作 · 开发 · 折腾 ]</p>
             <h1 id="hero-title"><span>水澄Mizu的</span><span>个人主页</span></h1>
             <p className="hero-accent">将 <span>创意</span> 落地。</p>
-            <p className="hero-description">做有趣的产品，写可靠的代码，也把每一个尚未成形的想法，慢慢变成可以被看见的东西。</p>
             <div className="hero-buttons">
               <a className="button primary" href="#websites">浏览作品 <span>→</span></a>
-              <a className="button ghost" href="https://github.com/Nightmizus" target="_blank" rel="noreferrer">查看 GitHub</a>
             </div>
-            <a className="scroll-note" href="#websites"><span>↙</span> 向下滚动 · 查看全部内容</a>
           </div>
 
           <div className="contact-frame">
             <FrameHandles />
             <div className="frame-toolbar">
               <span>CONTACT_CHANNELS</span>
-              <span>05 ITEMS</span>
             </div>
             <div className="contact-stack">
               {contacts.map((item) => (
@@ -95,19 +90,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="metrics" aria-label="个人数据概览">
-        <div><strong>06</strong><span>公开仓库</span></div>
-        <div><strong>05</strong><span>技术方向</span></div>
-        <div><strong>03+</strong><span>活跃项目</span></div>
-        <div><strong>24/7</strong><span>创意在线</span></div>
-        <div><strong>∞</strong><span>想法库存</span></div>
-      </section>
-
       <section className="websites technical-grid" id="websites" aria-labelledby="websites-title">
         <div className="section-heading">
           <p className="terminal-label">[ S1 · 网站导航 ]</p>
           <h2 id="websites-title">正在运行的<br /><span>数字空间。</span></h2>
-          <p>独立构建、持续维护。这里收录我的网站，以及它们此刻的运行状态。</p>
         </div>
 
         <div className="site-table" role="table" aria-label="水澄Mizu的网站">
@@ -125,9 +111,6 @@ export default function Home() {
               <span role="cell" data-label="状态"><em><i />{site.status}</em></span>
             </a>
           ))}
-          <div className="table-row table-pending" role="row">
-            <span role="cell">更多站点正在整理</span><span role="cell">—</span><span role="cell">水澄Mizu</span><span role="cell">待公开</span>
-          </div>
         </div>
       </section>
 
@@ -150,13 +133,7 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-      <footer className="footer technical-grid" id="contact">
-        <p className="terminal-label">[ READY_FOR_NEXT_IDEA ]</p>
-        <h2>有新的想法？<br /><span>一起把它做出来。</span></h2>
-        <a className="footer-mail" href="mailto:Nightmizus@gmail.com">Nightmizus@gmail.com <span>↗</span></a>
-        <div className="footer-bottom"><span>© 2026 水澄Mizu</span><span>DESIGNED & BUILT WITH CURIOSITY</span><a href="#top">BACK TO TOP ↑</a></div>
-      </footer>
+      <div className="site-end"><span>© 2026 水澄Mizu</span><a href="#top">返回顶部 ↑</a></div>
     </main>
   );
 }

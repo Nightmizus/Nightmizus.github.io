@@ -12,9 +12,8 @@ export const metadata: Metadata = {
     siteName: "水澄Mizu的个人主页",
     locale: "zh_CN",
     type: "website",
-    images: [{ url: "/og.png", width: 1728, height: 920, alt: "水澄Mizu的个人主页" }],
   },
-  twitter: { card: "summary_large_image", title: "水澄Mizu｜个人主页", description: "将创意落地。", images: ["/og.png"] },
+  twitter: { card: "summary", title: "水澄Mizu｜个人主页", description: "将创意落地。" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
