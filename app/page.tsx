@@ -78,6 +78,7 @@ const websites: Website[] = [
     url: "cowtypes.mizusumi.com",
     href: "https://cowtypes.mizusumi.com",
     description: "eletypes+，优化WPM计算方式，增加无限模式，支持隐藏中文/拼音",
+    repository: { label: "eletypes-frontend", href: "https://github.com/PrintfCow/eletypes-frontend" },
     owners: [{ name: "PrintfCow", github: "https://github.com/PrintfCow" }],
     status: "在线",
   },
@@ -89,6 +90,7 @@ const repositories = [
   { id: "R.03", name: "geoguessr-map", type: "HTML / WEB", text: "按国家与地理线索整理 GeoGuessr 学习资料的交互式世界地图，支持纯静态部署。", href: "https://github.com/Nightmizus/geoguessr-map" },
   { id: "R.04", name: "MizuLauncherAura", type: "C# / DESKTOP", text: "AI 驱动的 Minecraft 启动器 Aura 版本，目前处于搁置状态。", href: "https://github.com/Nightmizus/MizuLauncherAura" },
   { id: "R.05", name: "MizuLauncher", type: "C# / DESKTOP", text: "采用现代界面设计的 Minecraft 启动器，也是 MizuLauncher 系列的基础版本。", href: "https://github.com/Nightmizus/MizuLauncher" },
+  { id: "R.06", name: "musicmizu", type: "WEB / MUSIC", text: "Music Mizu 的社区平台仓库，让用户可以自由上传、浏览与分享音乐。", href: "https://github.com/shizwd/musicmizu" },
 ];
 
 function FrameHandles() {
@@ -139,6 +141,7 @@ export default function Home() {
                 </span>
               </div>
             </div>
+            <p className="hero-description">一些有意思的网站及项目的导航，也是Mizusumi大部分创意的集锦</p>
             <div className="hero-buttons">
               <a className="button primary" href="#websites">浏览作品 <span>→</span></a>
             </div>
@@ -207,11 +210,6 @@ export default function Home() {
           </div>
         </div>
 
-      </section>
-
-      <section className="intro-strip" aria-label="主页简介">
-        <span>ABOUT / 01</span>
-        <p>一些有意思的网站及项目的导航，也是Mizusumi大部分创意的集锦</p>
       </section>
 
       <section className="websites technical-grid" id="websites" aria-labelledby="websites-title">

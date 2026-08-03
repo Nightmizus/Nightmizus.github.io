@@ -85,6 +85,7 @@ summary { font: inherit; }
   25%, 100% { opacity: 0; filter: blur(7px); transform: translateY(-9px); }
 }
 .hero-buttons { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-description { max-width: 540px; margin: -8px 0 0; color: #9ba7a2; font-size: 12px; line-height: 1.75; }
 .button { min-height: 48px; padding: 0 22px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: var(--stroke) solid var(--line-strong); border-radius: 28px; font-size: 14px; font-weight: 600; }
 .button.primary { border-color: rgba(122, 133, 186, .62); color: var(--green-soft); }
 .button.primary:hover { background: var(--green); color: #06110c; }
@@ -127,9 +128,6 @@ summary { font: inherit; }
 .email-detail { display: flex; align-items: center; justify-content: space-between; gap: 12px; font: 11px var(--mono); }
 .email-detail a { display: flex; gap: 10px; }
 
-.intro-strip { min-height: 92px; padding: 22px clamp(28px, 5vw, 72px); display: grid; grid-template-columns: minmax(110px, .28fr) 1fr; align-items: center; gap: 28px; border-bottom: var(--stroke) solid var(--line); background: #090c0b; }
-.intro-strip > span { color: var(--green); font: 9px var(--mono); letter-spacing: .08em; }
-.intro-strip p { max-width: 780px; margin: 0; color: #aab5b0; font-size: 13px; line-height: 1.7; }
 .websites, .projects { padding: 100px 54px; border-bottom: var(--stroke) solid var(--line); background-color: var(--bg); }
 .websites::before, .projects::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 85% 22%, rgba(79, 90, 148, .25), transparent 27%); }
 .section-heading { width: min(100%, 1160px); margin: 0 auto 54px; position: relative; z-index: 1; display: block; }
@@ -137,7 +135,7 @@ summary { font: inherit; }
 .section-heading h2 { margin: 0; font-size: clamp(42px, 5.2vw, 78px); line-height: 1.04; font-weight: 600; letter-spacing: -.07em; }
 .section-heading h2 span { color: var(--green); }
 .site-table { width: min(100%, 1160px); margin: 0 auto; border: var(--stroke) solid var(--line-strong); background: rgba(8, 10, 15, .78); position: relative; z-index: 1; }
-.table-row { display: grid; grid-template-columns: 7fr 5fr 10fr 5fr 4fr 2fr; border-bottom: var(--stroke) solid var(--line-strong); }
+.table-row { display: grid; grid-template-columns: 10fr 6fr 5fr 6fr 4fr 2fr; border-bottom: var(--stroke) solid var(--line-strong); }
 .table-row:last-child { border-bottom: 0; }
 .table-row > span { min-width: 0; min-height: 64px; padding: 0 18px; display: flex; align-items: center; border-right: var(--stroke) solid var(--line-strong); }
 .table-row > span:last-child { border-right: 0; }
@@ -146,6 +144,7 @@ summary { font: inherit; }
 .site-row { min-height: 90px; transition: background .2s ease; }
 .site-row:hover { background: rgba(122, 133, 186, .12); }
 .site-row > span:first-child { gap: 18px; }
+.site-name { min-width: 0; white-space: nowrap; }
 .site-row > span:first-child i { color: #66736d; font: normal 10px var(--mono); }
 .site-row > span:first-child strong { font-size: clamp(17px, 1.7vw, 25px); font-weight: 500; letter-spacing: -.04em; }
 .site-name, .site-url, .owner-link { transition: color .2s ease; }
@@ -168,8 +167,8 @@ summary { font: inherit; }
 .projects::before { background: radial-gradient(circle at 70% 36%, rgba(87, 102, 168, .26), transparent 32%); }
 .section-heading.compact { display: block; }
 .section-heading.compact h2 { max-width: 990px; }
-.project-grid { width: min(100%, 1160px); margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; position: relative; z-index: 1; }
-.project-card { min-height: 390px; padding: 20px; border: var(--stroke) solid rgba(224, 226, 239, .48); background: rgba(11, 13, 21, .7); position: relative; display: flex; flex-direction: column; transition: background .2s ease, border-color .2s ease, transform .2s ease; }
+.project-grid { width: min(100%, 1160px); margin: 0 auto; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; position: relative; z-index: 1; }
+.project-card { min-height: 340px; padding: 18px; border: var(--stroke) solid rgba(224, 226, 239, .48); background: rgba(11, 13, 21, .7); position: relative; display: flex; flex-direction: column; transition: background .2s ease, border-color .2s ease, transform .2s ease; }
 .project-card:hover { background: rgba(28, 32, 53, .82); border-color: var(--green); transform: translateY(-4px); }
 .project-id { color: var(--green); font: 10px var(--mono); }
 .project-visual { height: 132px; margin: 22px 0; padding: 18px; display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(3, 1fr); gap: 7px; border: var(--stroke) solid var(--line); background: radial-gradient(circle at 80% 20%, rgba(96, 111, 181, .48), transparent 45%), #0d1019; }
@@ -189,8 +188,8 @@ summary { font: inherit; }
   .contact-frame { min-height: auto; }
   .section-heading { grid-template-columns: 1fr; gap: 24px; }
   .section-heading > p:last-child { margin-left: 0; }
-  .project-grid { grid-template-columns: 1fr; }
-  .project-card { min-height: 360px; }
+  .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .project-card { min-height: 340px; }
 }
 
 @media (max-width: 680px) {
@@ -222,8 +221,6 @@ summary { font: inherit; }
   .contact-profile img { width: 44px; height: 44px; }
   .email-detail { align-items: flex-start; flex-direction: column; gap: 5px; }
   main { width: 100%; border-left: 0; border-right: 0; }
-  .intro-strip { min-height: 0; padding: 22px 14px; grid-template-columns: 1fr; gap: 9px; }
-  .intro-strip p { font-size: 12px; }
   .websites, .projects { padding: 64px 12px; }
   .section-heading { margin-bottom: 34px; }
   .section-heading h2 { font-size: clamp(36px, 10.5vw, 52px); line-height: 1.08; }
@@ -245,7 +242,8 @@ summary { font: inherit; }
   .owner-list { padding: 2px 0; gap: 7px; }
   .site-row em { min-height: 22px; }
   .project-grid { gap: 14px; }
-  .project-card { min-height: 360px; padding: 16px; }
+  .project-grid { grid-template-columns: 1fr; }
+  .project-card { min-height: 340px; padding: 16px; }
   .project-visual { height: 112px; margin: 18px 0; padding: 14px; }
   .project-card small { font-size: 12px; }
   .site-end { min-height: 54px; padding-left: max(12px, env(safe-area-inset-left)); padding-right: max(12px, env(safe-area-inset-right)); }
