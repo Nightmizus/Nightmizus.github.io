@@ -106,7 +106,14 @@ export default function Home() {
           <div className="hero-copy">
             <p className="terminal-label">[ 创作 · 开发 ]</p>
             <h1 id="hero-title"><span>水澄Mizu的</span><span>个人主页</span></h1>
-            <p className="hero-accent">将 <span>创意</span> 落地。</p>
+            <div className="hero-transform" aria-label="将想法变为网页，将创意变为视频，将工具变为APP，把灵感变为现实">
+              <div className="transform-lines" aria-hidden="true">
+                <p className="transform-line"><span className="transform-connector">将</span><strong className="transform-key left">想法</strong><span className="transform-connector">变为</span><strong className="transform-key right">网页</strong></p>
+                <p className="transform-line"><span className="transform-connector">将</span><strong className="transform-key left">创意</strong><span className="transform-connector">变为</span><strong className="transform-key right">视频</strong></p>
+                <p className="transform-line"><span className="transform-connector">将</span><strong className="transform-key left">工具</strong><span className="transform-connector">变为</span><strong className="transform-key right">APP</strong></p>
+                <p className="transform-line"><span className="transform-connector">把</span><strong className="transform-key left">灵感</strong><span className="transform-connector">变为</span><strong className="transform-key right">现实</strong></p>
+              </div>
+            </div>
             <div className="hero-buttons">
               <a className="button primary" href="#websites">浏览作品 <span>→</span></a>
             </div>
