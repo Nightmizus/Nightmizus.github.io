@@ -216,15 +216,20 @@ summary { font: inherit; }
   .section-heading h2 { font-size: clamp(36px, 10.5vw, 52px); line-height: 1.08; }
   .table-head { display: none; }
   .table-row { display: block; }
-  .table-row > span { min-height: 48px; padding: 9px 12px; border-right: 0; border-bottom: var(--stroke) solid var(--line); display: grid; grid-template-columns: 88px minmax(0, 1fr); align-items: center; }
-  .table-row > span::before { content: attr(data-label); color: #68756e; font: 9px var(--mono); }
+  .site-row { min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(104px, .55fr); }
+  .site-row > span { min-height: 0; padding: 12px; border-right: 0; border-bottom: var(--stroke) solid var(--line); display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
+  .site-row > span::before { content: attr(data-label); color: #68756e; font: 9px var(--mono); letter-spacing: .04em; }
+  .site-row > span:first-child { grid-column: 1 / -1; padding-top: 16px; padding-bottom: 16px; }
+  .site-row > span:nth-child(2) { grid-column: 1 / -1; }
+  .site-row > span:nth-child(3) { grid-column: 1; border-right: var(--stroke) solid var(--line); border-bottom: 0; }
+  .site-row > span:nth-child(4) { grid-column: 2; border-bottom: 0; }
   .site-row > span:first-child i { display: none; }
-  .site-row > span:first-child { gap: 0; }
+  .site-row > span:first-child { gap: 8px; }
   .site-row > span:first-child strong { font-size: 19px; line-height: 1.25; }
-  .site-row > span:nth-child(2) { display: grid; }
   .site-url { min-width: 0; }
   .site-url code { overflow-wrap: anywhere; }
-  .owner-list { padding: 4px 0; }
+  .owner-list { padding: 2px 0; gap: 7px; }
+  .site-row em { min-height: 22px; }
   .project-grid { gap: 14px; }
   .project-card { min-height: 360px; padding: 16px; }
   .project-visual { height: 112px; margin: 18px 0; padding: 14px; }
@@ -239,7 +244,7 @@ summary { font: inherit; }
   .transform-sentence { font-size: 19px; }
   .transform-slot { font-size: 31px; }
   .frame-toolbar > span { letter-spacing: -.03em; }
-  .table-row > span { grid-template-columns: 78px minmax(0, 1fr); }
+  .site-row { grid-template-columns: minmax(0, 1fr) 96px; }
   .section-heading h2 { font-size: clamp(34px, 10vw, 46px); }
   .site-end { font-size: 8px; }
 }
