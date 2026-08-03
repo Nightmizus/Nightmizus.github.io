@@ -1,10 +1,23 @@
 "use client";
 
-const contacts = [
-  { id: "01", label: "微信", value: "微信号待补充", note: "添加时请备注来意" },
-  { id: "02", label: "BILIBILI", value: "UID 1023885059", note: "水澄Mizu", href: "https://space.bilibili.com/1023885059" },
-  { id: "03", label: "GITHUB", value: "@Nightmizus", note: "代码与开源项目", href: "https://github.com/Nightmizus" },
-  { id: "04", label: "QQ", value: "QQ 号码待补充", note: "添加时请备注来意" },
+import Image from "next/image";
+
+type Contact = {
+  id: string;
+  label: string;
+  avatar?: string;
+  nickname?: string;
+  identifier?: string;
+  value?: string;
+  note?: string;
+  href?: string;
+};
+
+const contacts: Contact[] = [
+  { id: "01", label: "微信", avatar: "/hyouya-avatar.jpg", nickname: "氷鵺", identifier: "微信号：Mizusumi" },
+  { id: "02", label: "BILIBILI", avatar: "/mizu-avatar.jpg", nickname: "水澄Mizu", identifier: "UID：1023885059", href: "https://space.bilibili.com/1023885059" },
+  { id: "03", label: "GITHUB", avatar: "/mizu-avatar.jpg", nickname: "水澄Mizusumi", identifier: "用户名：Nightmizus", href: "https://github.com/Nightmizus" },
+  { id: "04", label: "QQ", avatar: "/hyouya-avatar.jpg", nickname: "氷鵺", identifier: "QQ号：2631522976" },
   { id: "05", label: "邮箱", value: "Nightmizus@gmail.com", note: "合作与正式联系", href: "mailto:Nightmizus@gmail.com" },
 ];
 
@@ -71,7 +84,7 @@ export default function Home() {
     <main>
       <header className="nav-shell">
         <a className="wordmark" href="#top" aria-label="返回顶部">
-          <span className="mark-grid" aria-hidden="true"><i /><i /><i /><i /><i /></span>
+          <Image className="brand-avatar" src="/mizu-avatar.jpg" alt="水澄Mizu" width={34} height={34} priority />
           <strong>mizusumi</strong>
         </a>
         <nav aria-label="主导航">
@@ -99,6 +112,10 @@ export default function Home() {
           <div className="contact-frame">
             <FrameHandles />
             <div className="frame-toolbar">
+              <div className="contact-owner">
+                <Image src="/mizu-avatar.jpg" alt="水澄Mizu的头像" width={68} height={68} priority />
+                <strong>水澄Mizu</strong>
+              </div>
               <span>CONTACT_CHANNELS</span>
             </div>
             <div className="contact-stack">
@@ -110,8 +127,25 @@ export default function Home() {
                     <span className="row-plus">+</span>
                   </summary>
                   <div className="row-detail">
-                    {item.href ? <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">{item.value} <span>↗</span></a> : <span>{item.value}</span>}
-                    <small>{item.note}</small>
+                    {item.avatar && item.nickname && item.identifier ? (
+                      item.href ? (
+                        <a className="contact-profile" href={item.href} target="_blank" rel="noreferrer">
+                          <Image src={item.avatar} alt={`${item.nickname}的头像`} width={48} height={48} />
+                          <span><strong>{item.nickname}</strong><small>{item.identifier}</small></span>
+                          <b aria-hidden="true">↗</b>
+                        </a>
+                      ) : (
+                        <div className="contact-profile">
+                          <Image src={item.avatar} alt={`${item.nickname}的头像`} width={48} height={48} />
+                          <span><strong>{item.nickname}</strong><small>{item.identifier}</small></span>
+                        </div>
+                      )
+                    ) : (
+                      <div className="email-detail">
+                        <a href={item.href}>{item.value} <span>↗</span></a>
+                        <small>{item.note}</small>
+                      </div>
+                    )}
                   </div>
                 </details>
               ))}

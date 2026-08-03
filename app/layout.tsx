@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://nightmizus.github.io"),
   title: "水澄Mizu｜个人主页",
   description: "水澄Mizu的个人主页——将创意落地，收录个人项目、网站与联系方式。",
+  icons: {
+    icon: "/mizu-avatar.jpg",
+    apple: "/mizu-avatar.jpg",
+  },
   openGraph: {
     title: "水澄Mizu｜个人主页",
     description: "将创意落地。浏览我的网站、项目与实验。",
