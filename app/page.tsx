@@ -6,6 +6,7 @@ import { useState } from "react";
 type Contact = {
   id: string;
   label: string;
+  icon: string;
   avatar?: string;
   nickname?: string;
   identifier?: string;
@@ -15,11 +16,11 @@ type Contact = {
 };
 
 const contacts: Contact[] = [
-  { id: "01", label: "微信", avatar: "/hyouya-avatar.jpg", nickname: "氷鵺", identifier: "微信号：Mizusumi" },
-  { id: "02", label: "BILIBILI", avatar: "/mizu-avatar.jpg", nickname: "水澄Mizu", identifier: "UID：1023885059", href: "https://space.bilibili.com/1023885059" },
-  { id: "03", label: "GITHUB", avatar: "/mizu-avatar.jpg", nickname: "水澄Mizusumi", identifier: "用户名：Nightmizus", href: "https://github.com/Nightmizus" },
-  { id: "04", label: "QQ", avatar: "/hyouya-avatar.jpg", nickname: "氷鵺", identifier: "QQ号：2631522976" },
-  { id: "05", label: "邮箱", value: "Nightmizus@gmail.com", note: "合作与正式联系", href: "mailto:Nightmizus@gmail.com" },
+  { id: "01", label: "微信", icon: "微", avatar: "/hyouya-avatar.jpg", nickname: "氷鵺", identifier: "微信号：Mizusumi" },
+  { id: "02", label: "BILIBILI", icon: "B", avatar: "/mizu-avatar.jpg", nickname: "水澄Mizu", identifier: "UID：1023885059", href: "https://space.bilibili.com/1023885059" },
+  { id: "03", label: "GITHUB", icon: "GH", avatar: "/mizu-avatar.jpg", nickname: "水澄Mizusumi", identifier: "用户名：Nightmizus", href: "https://github.com/Nightmizus" },
+  { id: "04", label: "QQ", icon: "Q", avatar: "/hyouya-avatar.jpg", nickname: "氷鵺", identifier: "QQ号：2631522976" },
+  { id: "05", label: "邮箱", icon: "@", value: "Nightmizus@gmail.com", note: "合作与正式联系", href: "mailto:Nightmizus@gmail.com" },
 ];
 
 type WebsiteOwner = {
@@ -32,6 +33,11 @@ type Website = {
   name: string;
   url: string;
   href: string;
+  description: string;
+  repository?: {
+    label: string;
+    href: string;
+  };
   owners: WebsiteOwner[];
   status: "在线";
 };
@@ -41,6 +47,8 @@ const websites: Website[] = [
     name: "水澄Mizu的个人主页",
     url: "mizusumi.com",
     href: "https://mizusumi.com",
+    description: "一些有意思的网站及项目的导航，也是Mizusumi大部分创意的集锦",
+    repository: { label: "Nightmizus.github.io", href: "https://github.com/Nightmizus/Nightmizus.github.io" },
     owners: [{ name: "水澄Mizu", github: "https://github.com/Nightmizus" }],
     status: "在线",
   },
@@ -48,6 +56,8 @@ const websites: Website[] = [
     name: "Mizusumi的图寻地图",
     url: "map.mizusumi.com",
     href: "https://map.mizusumi.com",
+    description: "将区域国家特征粘贴在地图上，帮助你快速学习图寻所用到的知识",
+    repository: { label: "geoguessr-map", href: "https://github.com/Nightmizus/geoguessr-map" },
     owners: [{ name: "水澄Mizu", github: "https://github.com/Nightmizus" }],
     status: "在线",
   },
@@ -55,6 +65,8 @@ const websites: Website[] = [
     name: "Music Mizu",
     url: "music.mizusumi.com",
     href: "https://music.mizusumi.com",
+    description: "自(pay mizu)由(to upload)上传的音乐社区平台",
+    repository: { label: "musicmizu", href: "https://github.com/shizwd/musicmizu" },
     owners: [
       { name: "水澄Mizu", github: "https://github.com/Nightmizus", role: "开发" },
       { name: "shi_zwd", github: "https://github.com/shizwd", role: "维护" },
@@ -65,15 +77,18 @@ const websites: Website[] = [
     name: "Cowtypes",
     url: "cowtypes.mizusumi.com",
     href: "https://cowtypes.mizusumi.com",
+    description: "eletypes+，优化WPM计算方式，增加无限模式，支持隐藏中文/拼音",
     owners: [{ name: "PrintfCow", github: "https://github.com/PrintfCow" }],
     status: "在线",
   },
 ];
 
-const projects = [
-  { id: "P.01", name: "MizuLauncherAura", type: "C# / DESKTOP", text: "MizuLauncher 的 Aura 版本，探索更现代的 Minecraft 启动器体验。", href: "https://github.com/Nightmizus/MizuLauncherAura" },
-  { id: "P.02", name: "mio-core", type: "PYTHON / SERVICE", text: "音乐目录代理、私聊与受控发布服务，让内容整理与分发更顺手。", href: "https://github.com/Nightmizus/mio-core" },
-  { id: "P.03", name: "geoguessr-map", type: "HTML / EXPERIMENT", text: "围绕地图与地理探索制作的网页实验。", href: "https://github.com/Nightmizus/geoguessr-map" },
+const repositories = [
+  { id: "R.01", name: "mio-core", type: "PYTHON / SERVICE", text: "Music Mizu 的私人运营内核，提供邀请认证、聊天、断点上传与可审计的音乐发布流水线。", href: "https://github.com/Nightmizus/mio-core" },
+  { id: "R.02", name: "twinject-rev", type: "C++ / WINDOWS", text: "面向 Windows 东方 Project 的自动游玩注入器续作，补齐多作支持并加入一键启动界面。", href: "https://github.com/Nightmizus/twinject-rev" },
+  { id: "R.03", name: "geoguessr-map", type: "HTML / WEB", text: "按国家与地理线索整理 GeoGuessr 学习资料的交互式世界地图，支持纯静态部署。", href: "https://github.com/Nightmizus/geoguessr-map" },
+  { id: "R.04", name: "MizuLauncherAura", type: "C# / DESKTOP", text: "AI 驱动的 Minecraft 启动器 Aura 版本，目前处于搁置状态。", href: "https://github.com/Nightmizus/MizuLauncherAura" },
+  { id: "R.05", name: "MizuLauncher", type: "C# / DESKTOP", text: "采用现代界面设计的 Minecraft 启动器，也是 MizuLauncher 系列的基础版本。", href: "https://github.com/Nightmizus/MizuLauncher" },
 ];
 
 function FrameHandles() {
@@ -92,11 +107,11 @@ export default function Home() {
         </a>
         <nav aria-label="主导航">
           <a href="#websites">网站</a>
-          <a href="#projects">项目</a>
+          <a href="#repositories">GitHub</a>
         </nav>
         <div className="nav-actions">
           <span className="lang">CN</span>
-          <a className="console-button" href="mailto:Nightmizus@gmail.com">找到我 <span>→</span></a>
+          <a className="console-button" href="https://github.com/Nightmizus/Nightmizus.github.io" target="_blank" rel="noreferrer">本站仓库 <span>↗</span></a>
         </div>
       </header>
 
@@ -153,7 +168,7 @@ export default function Home() {
                       onClick={() => setOpenContact(isOpen ? null : item.label)}
                     >
                       <span className="row-id">{item.id}</span>
-                      <strong>{item.label}</strong>
+                      <span className="contact-label"><i className="platform-icon" aria-hidden="true">{item.icon}</i><strong>{item.label}</strong></span>
                       <span className="row-plus" aria-hidden="true">+</span>
                     </button>
                     <div
@@ -194,6 +209,11 @@ export default function Home() {
 
       </section>
 
+      <section className="intro-strip" aria-label="主页简介">
+        <span>ABOUT / 01</span>
+        <p>一些有意思的网站及项目的导航，也是Mizusumi大部分创意的集锦</p>
+      </section>
+
       <section className="websites technical-grid" id="websites" aria-labelledby="websites-title">
         <div className="section-heading">
           <p className="terminal-label">[ S1 · 网站导航 ]</p>
@@ -204,6 +224,8 @@ export default function Home() {
           <div className="table-row table-head" role="row">
             <span role="columnheader">名称</span>
             <span role="columnheader">网址</span>
+            <span role="columnheader">简介</span>
+            <span role="columnheader">GitHub仓库</span>
             <span role="columnheader">开发与维护</span>
             <span role="columnheader">状态</span>
           </div>
@@ -211,6 +233,10 @@ export default function Home() {
             <div className="table-row site-row" role="row" key={site.name}>
               <span role="cell" data-label="名称"><i>{String(index + 1).padStart(2, "0")}</i><a className="site-name" href={site.href} target="_blank" rel="noreferrer"><strong>{site.name}</strong></a></span>
               <span role="cell" data-label="网址"><a className="site-url" href={site.href} target="_blank" rel="noreferrer"><code>{site.url}</code><b>↗</b></a></span>
+              <span role="cell" data-label="简介"><small className="site-description">{site.description}</small></span>
+              <span role="cell" data-label="GitHub仓库">
+                {site.repository ? <a className="repo-link" href={site.repository.href} target="_blank" rel="noreferrer">{site.repository.label}<b>↗</b></a> : <small className="repo-unavailable">未公开</small>}
+              </span>
               <span role="cell" data-label="开发与维护">
                 <span className="owner-list">
                   {site.owners.map((owner) => (
@@ -227,13 +253,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="projects technical-grid" id="projects" aria-labelledby="projects-title">
+      <section className="projects technical-grid" id="repositories" aria-labelledby="repositories-title">
         <div className="section-heading compact">
-          <p className="terminal-label">[ S2 · 项目与实验 ]</p>
-          <h2 id="projects-title">把想法，<br /><span>变成可以运行的东西。</span></h2>
+          <p className="terminal-label">[ S2 · GITHUB 仓库 ]</p>
+          <h2 id="repositories-title">公开代码与<br /><span>持续实验。</span></h2>
         </div>
         <div className="project-grid">
-          {projects.map((project) => (
+          {repositories.map((project) => (
             <a className="project-card" href={project.href} target="_blank" rel="noreferrer" key={project.name}>
               <FrameHandles />
               <span className="project-id">{project.id}</span>
@@ -241,7 +267,7 @@ export default function Home() {
               <p>{project.type}</p>
               <h3>{project.name}</h3>
               <small>{project.text}</small>
-              <b>查看项目 <span>↗</span></b>
+              <b>查看仓库 <span>↗</span></b>
             </a>
           ))}
         </div>
