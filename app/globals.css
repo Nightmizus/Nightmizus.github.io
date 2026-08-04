@@ -103,7 +103,7 @@ summary { font: inherit; }
 .contact-owner img { width: 68px; height: 68px; flex: 0 0 auto; border: var(--stroke) solid rgba(223, 226, 241, .56); border-radius: 3px; object-fit: cover; }
 .contact-owner strong { overflow: hidden; color: var(--text); font: 500 19px var(--sans); letter-spacing: -.03em; white-space: nowrap; text-overflow: ellipsis; }
 .frame-toolbar > span { margin-left: auto; align-self: flex-start; padding-top: 18px; white-space: nowrap; }
-.contact-stack { display: grid; grid-template-rows: repeat(5, minmax(54px, auto)); }
+.contact-stack { display: grid; grid-template-rows: repeat(6, minmax(54px, auto)); }
 .contact-row { border-bottom: var(--stroke) solid var(--line); overflow: hidden; transition: background .2s ease; }
 .contact-row:last-child { border-bottom: 0; }
 .contact-row:hover, .contact-row.is-open { background: rgba(122, 133, 186, .12); }
