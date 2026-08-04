@@ -94,6 +94,11 @@ const repositories = [
   { id: "R.06", name: "musicmizu", type: "WEB / MUSIC", text: "Music Mizu 的社区平台仓库，让用户可以自由上传、浏览与分享音乐。", href: "https://github.com/shizwd/musicmizu" },
 ];
 
+const friendLinks = [
+  { name: "Groovin", url: "groovin.cn", href: "https://groovin.cn" },
+  { name: "映界Echomirix", url: "echomirix.top", href: "https://echomirix.top" },
+];
+
 function FrameHandles() {
   return <><i className="handle tl" /><i className="handle tr" /><i className="handle bl" /><i className="handle br" /><i className="handle tm" /><i className="handle bm" /></>;
 }
@@ -271,6 +276,23 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <section className="friends technical-grid" id="friends" aria-labelledby="friends-title">
+        <div className="friends-heading">
+          <p className="terminal-label">[ S3 · 友链 ]</p>
+          <h2 id="friends-title">友链</h2>
+        </div>
+        <div className="friends-table" role="table" aria-label="友情链接">
+          {friendLinks.map((friend) => (
+            <a className="friend-row" href={friend.href} target="_blank" rel="noreferrer" role="row" key={friend.name}>
+              <strong role="cell">{friend.name}</strong>
+              <code role="cell">{friend.url}</code>
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
       <div className="site-end"><span>© 2026 水澄Mizu</span><a href="#top">返回顶部 ↑</a></div>
     </main>
   );
