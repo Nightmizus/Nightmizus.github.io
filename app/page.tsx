@@ -20,7 +20,7 @@ const contacts: Contact[] = [
   { id: "02", label: "BILIBILI", icon: "B", avatar: "/mizu-avatar.jpg", nickname: "水澄Mizu", identifier: "UID：1023885059", href: "https://space.bilibili.com/1023885059" },
   { id: "03", label: "GITHUB", icon: "GH", avatar: "/mizu-avatar.jpg", nickname: "水澄Mizusumi", identifier: "用户名：Nightmizus", href: "https://github.com/Nightmizus" },
   { id: "04", label: "QQ", icon: "Q", avatar: "/hyouya-avatar.jpg", nickname: "氷鵺", identifier: "QQ号：2631522976" },
-  { id: "05", label: "TELEGRAM", icon: "TG", avatar: "/mizu-avatar.jpg", nickname: "水澄Mizu", identifier: "@Mizusumi", href: "https://t.me/Mizusumi" },
+  { id: "05", label: "TELEGRAM", icon: "TG", avatar: "/hyouya-avatar.jpg", nickname: "水澄Mizu", identifier: "@Mizusumi", href: "https://t.me/Mizusumi" },
   { id: "06", label: "邮箱", icon: "@", value: "Nightmizus@gmail.com", note: "合作与正式联系", href: "mailto:Nightmizus@gmail.com" },
 ];
 
