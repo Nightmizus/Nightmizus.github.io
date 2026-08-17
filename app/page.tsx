@@ -86,12 +86,14 @@ const websites: Website[] = [
 ];
 
 const repositories = [
-  { id: "R.01", name: "mio-core", type: "PYTHON / SERVICE", text: "Music Mizu 的私人运营内核，提供邀请认证、聊天、断点上传与可审计的音乐发布流水线。", href: "https://github.com/Nightmizus/mio-core" },
-  { id: "R.02", name: "twinject-rev", type: "C++ / WINDOWS", text: "面向 Windows 东方 Project 的自动游玩注入器续作，补齐多作支持并加入一键启动界面。", href: "https://github.com/Nightmizus/twinject-rev" },
-  { id: "R.03", name: "geoguessr-map", type: "HTML / WEB", text: "按国家与地理线索整理 GeoGuessr 学习资料的交互式世界地图，支持纯静态部署。", href: "https://github.com/Nightmizus/geoguessr-map" },
-  { id: "R.04", name: "MizuLauncherAura", type: "C# / DESKTOP", text: "AI 驱动的 Minecraft 启动器 Aura 版本，目前处于搁置状态。", href: "https://github.com/Nightmizus/MizuLauncherAura" },
-  { id: "R.05", name: "MizuLauncher", type: "C# / DESKTOP", text: "采用现代界面设计的 Minecraft 启动器，也是 MizuLauncher 系列的基础版本。", href: "https://github.com/Nightmizus/MizuLauncher" },
-  { id: "R.06", name: "musicmizu", type: "WEB / MUSIC", text: "Music Mizu 的社区平台仓库，让用户可以自由上传、浏览与分享音乐。", href: "https://github.com/shizwd/musicmizu" },
+  { id: "R.01", name: "NeuroMex", type: "PYTHON / AI VIDEO", text: "AI 辅助视频剪辑项目，包含 NeuroMex 核心流程、PySide6 桌面 UI 与 NeuroPR 前端原型。", href: "https://github.com/Nightmizus/NeuroMex" },
+  { id: "R.02", name: "AnimeFaceCrop", type: "PYTHON / COMPUTER VISION", text: "从长视频中提取动漫或真人角色的正面与侧面头像裁剪。", href: "https://github.com/Nightmizus/AnimeFaceCrop" },
+  { id: "R.03", name: "mio-core", type: "PYTHON / SERVICE", text: "Mio 音乐目录代理、私聊与受控 Faircamp 发布服务。", href: "https://github.com/Nightmizus/mio-core" },
+  { id: "R.04", name: "twinject-rev", type: "C++ / WINDOWS", text: "面向 Windows 东方 Project 的自动游玩注入器续作，补齐多作支持并加入一键启动界面。", href: "https://github.com/Nightmizus/twinject-rev" },
+  { id: "R.05", name: "geoguessr-map", type: "HTML / WEB", text: "按国家与地理线索整理 GeoGuessr 学习资料的交互式世界地图，支持纯静态部署。", href: "https://github.com/Nightmizus/geoguessr-map" },
+  { id: "R.06", name: "MizuLauncherAura", type: "C# / DESKTOP", text: "MizuLauncher 的 Aura 版本，探索 AI 驱动的 Minecraft 启动器体验。", href: "https://github.com/Nightmizus/MizuLauncherAura" },
+  { id: "R.07", name: "MizuLauncher", type: "C# / DESKTOP", text: "采用现代界面设计的 Minecraft 启动器，也是 MizuLauncher 系列的基础版本。", href: "https://github.com/Nightmizus/MizuLauncher" },
+  { id: "R.08", name: "musicmizu", type: "WEB / MUSIC", text: "Music Mizu 的社区平台仓库，让用户可以自由上传、浏览与分享音乐。", href: "https://github.com/shizwd/musicmizu" },
 ];
 
 const friendLinks = [
