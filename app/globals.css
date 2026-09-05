@@ -89,7 +89,7 @@ summary { font: inherit; }
 .button { min-height: 48px; padding: 0 22px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: var(--stroke) solid var(--line-strong); border-radius: 28px; font-size: 14px; font-weight: 600; }
 .button.primary { border-color: rgba(122, 133, 186, .62); color: var(--green-soft); }
 .button.primary:hover { background: var(--green); color: #06110c; }
-.contact-frame { min-height: 378px; border: var(--stroke) solid rgba(223, 226, 241, .72); background: rgba(9, 11, 18, .56); position: relative; backdrop-filter: blur(15px); }
+.contact-frame { min-height: 0; border: var(--stroke) solid rgba(223, 226, 241, .72); background: rgba(9, 11, 18, .56); position: relative; backdrop-filter: blur(15px); }
 .handle { width: 13px; height: 13px; position: absolute; z-index: 4; }
 .handle::before, .handle::after { content: ""; position: absolute; background: rgba(238, 247, 242, .9); }
 .handle::before { width: 13px; height: 1px; left: 0; top: 6px; }
