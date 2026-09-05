@@ -99,6 +99,7 @@ const repositories = [
 const friendLinks = [
   { name: "Groovin", url: "groovin.cn", href: "https://groovin.cn" },
   { name: "映界Echomirix", url: "echomirix.top", href: "https://echomirix.top" },
+  { name: "ruixiuzhang.com", url: "ruixiuzhang.com", href: "https://ruixiuzhang.com" },
 ];
 
 function FrameHandles() {
