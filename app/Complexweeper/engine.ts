@@ -1,53 +1,68 @@
-export type Clue = { re: number; im: number };
+/** 雷的四种复数类型：0=+1, 1=−1, 2=+i, 3=−i */
+export type MineType = 0 | 1 | 2 | 3;
 
-export type CellMark = 0 | 1 | 2;
+/** 旗帜：0=无, 1=+1, 2=−1, 3=+i, 4=−i */
+export type FlagType = 0 | 1 | 2 | 3 | 4;
+
+export const MINE_VALUES: ReadonlyArray<{ re: number; im: number }> = [
+  { re: 1, im: 0 },
+  { re: -1, im: 0 },
+  { re: 0, im: 1 },
+  { re: 0, im: -1 },
+];
+
+/** 旗型对应的复数值（0 为无旗） */
+export const FLAG_VALUES: ReadonlyArray<{ re: number; im: number } | null> = [
+  null,
+  MINE_VALUES[0],
+  MINE_VALUES[1],
+  MINE_VALUES[2],
+  MINE_VALUES[3],
+];
+
+export const FLAG_LABELS = ["", "+1", "−1", "+i", "−i"] as const;
+
+/** 格子显示值：模长 |z| = k√n（n 无平方因子；k=0 表示抵消为 0），以及周围是否有雷 */
+export type CellValue = { k: number; n: number; hasMineAround: boolean };
 
 export type Cell = {
   mine: boolean;
+  mineType: MineType | null;
   revealed: boolean;
-  mark: CellMark;
-  clue: Clue;
+  flag: FlagType;
+  value: CellValue;
 };
+
+export type MineCounts = [number, number, number, number];
 
 export type Difficulty = {
   id: string;
   label: string;
   width: number;
   height: number;
-  mines: number;
+  mines: MineCounts;
 };
 
 export const DIFFICULTIES: Difficulty[] = [
-  { id: "easy", label: "初级", width: 9, height: 9, mines: 10 },
-  { id: "medium", label: "中级", width: 16, height: 16, mines: 40 },
-  { id: "hard", label: "高级", width: 30, height: 16, mines: 99 },
+  { id: "easy", label: "初级", width: 9, height: 9, mines: [5, 5, 5, 5] },
+  { id: "medium", label: "中级", width: 16, height: 16, mines: [15, 15, 15, 15] },
+  { id: "hard", label: "高级", width: 30, height: 16, mines: [30, 30, 30, 30] },
 ];
 
-type Offset = readonly [number, number];
+const OFFSETS8: ReadonlyArray<readonly [number, number]> = [
+  [-1, -1], [0, -1], [1, -1],
+  [-1, 0], [1, 0],
+  [-1, 1], [0, 1], [1, 1],
+];
 
-/** 正交四邻：上、下、左、右 —— 计入复数线索的实部 */
-export const ORTHO_OFFSETS: readonly Offset[] = [[0, -1], [0, 1], [-1, 0], [1, 0]];
-
-/** 斜角四邻 —— 计入复数线索的虚部 */
-export const DIAG_OFFSETS: readonly Offset[] = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
-
-export const ALL_OFFSETS: readonly Offset[] = [...ORTHO_OFFSETS, ...DIAG_OFFSETS];
-
-export function neighbors(
-  index: number,
-  width: number,
-  height: number,
-  offsets: readonly Offset[] = ALL_OFFSETS,
-): number[] {
+export function neighbors(index: number, width: number, height: number): number[] {
   const x = index % width;
   const y = Math.floor(index / width);
   const result: number[] = [];
-  for (const [dx, dy] of offsets) {
+  for (const [dx, dy] of OFFSETS8) {
     const nx = x + dx;
     const ny = y + dy;
-    if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-      result.push(ny * width + nx);
-    }
+    if (nx >= 0 && nx < width && ny >= 0 && ny < height) result.push(ny * width + nx);
   }
   return result;
 }
@@ -55,70 +70,100 @@ export function neighbors(
 export function emptyBoard(size: number): Cell[] {
   return Array.from({ length: size }, (): Cell => ({
     mine: false,
+    mineType: null,
     revealed: false,
-    mark: 0,
-    clue: { re: 0, im: 0 },
+    flag: 0,
+    value: { k: 0, n: 0, hasMineAround: false },
   }));
 }
 
-export function computeClues(cells: Cell[], width: number, height: number): Cell[] {
+/** 化简 N = k²·n（n 无平方因子）；N≤0 → k=0, n=0 */
+export function simplify(N: number): { k: number; n: number } {
+  if (N <= 0) return { k: 0, n: 0 };
+  for (let i = Math.floor(Math.sqrt(N)); i >= 2; i -= 1) {
+    if (N % (i * i) === 0) return { k: i, n: N / (i * i) };
+  }
+  return { k: 1, n: N };
+}
+
+/** 显示值的模长平方 N = k²·n */
+export function displayN(value: CellValue): number {
+  return value.k * value.k * value.n;
+}
+
+/** 显示文本：周围无雷→空白；抵消为 0→"0"；整数→"k"；k=1→"√n"；否则 "k√n" */
+export function valueText(value: CellValue): string {
+  if (!value.hasMineAround) return "";
+  if (value.k === 0) return "0";
+  if (value.n === 1) return String(value.k);
+  if (value.k === 1) return `√${value.n}`;
+  return `${value.k}√${value.n}`;
+}
+
+/** 计算每格的显示值：周围雷的复数和 z = a+bi，模长平方 N=a²+b² 化简为 k√n */
+export function computeValues(cells: Cell[], width: number, height: number): Cell[] {
   return cells.map((cell, index) => {
     if (cell.mine) return cell;
-    const re = neighbors(index, width, height, ORTHO_OFFSETS)
-      .reduce((sum, n) => sum + (cells[n].mine ? 1 : 0), 0);
-    const im = neighbors(index, width, height, DIAG_OFFSETS)
-      .reduce((sum, n) => sum + (cells[n].mine ? 1 : 0), 0);
-    return { ...cell, clue: { re, im } };
+    let re = 0;
+    let im = 0;
+    let hasMineAround = false;
+    for (const n of neighbors(index, width, height)) {
+      const nb = cells[n];
+      if (!nb.mine || nb.mineType === null) continue;
+      hasMineAround = true;
+      re += MINE_VALUES[nb.mineType].re;
+      im += MINE_VALUES[nb.mineType].im;
+    }
+    const { k, n: sq } = simplify(re * re + im * im);
+    return { ...cell, value: { k, n: sq, hasMineAround } };
   });
 }
 
+
 /**
- * 生成棋盘。首点保护：safeIndex 及其八邻域内不会布雷
- * （棋盘放不下时退化为仅保护 safeIndex）。
+ * 布雷：首点 (safeIndex) 的 3×3 邻域保护（保证首点空白且能连片展开）；
+ * 雷型按四种雷剩余数量轮盘随机分配。
  */
 export function generateBoard(
   width: number,
   height: number,
-  mines: number,
+  mineCounts: MineCounts,
   safeIndex: number,
   rng: () => number = Math.random,
 ): Cell[] {
   const total = width * height;
-  const excluded = new Set<number>([safeIndex, ...neighbors(safeIndex, width, height, ALL_OFFSETS)]);
-  let pool: number[] = [];
-  for (let i = 0; i < total; i += 1) {
-    if (!excluded.has(i)) pool.push(i);
-  }
-  if (pool.length < mines) {
-    pool = [];
-    for (let i = 0; i < total; i += 1) {
-      if (i !== safeIndex) pool.push(i);
-    }
-  }
-  for (let i = pool.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(rng() * (i + 1));
-    const tmp = pool[i];
-    pool[i] = pool[j];
-    pool[j] = tmp;
-  }
+  const remaining: MineCounts = [...mineCounts];
+  const totalMines = remaining[0] + remaining[1] + remaining[2] + remaining[3];
   const cells = emptyBoard(total);
-  for (let k = 0; k < mines; k += 1) {
-    cells[pool[k]] = { ...cells[pool[k]], mine: true };
-  }
-  return computeClues(cells, width, height);
-}
+  const protect = new Set<number>([safeIndex, ...neighbors(safeIndex, width, height)]);
 
-/** 复数线索的显示文本：0+0i → 空白；3+0i → "3"；0+2i → "2i"；1+2i → "1+2i" */
-export function clueText(clue: Clue): string {
-  if (clue.re === 0 && clue.im === 0) return "";
-  if (clue.im === 0) return String(clue.re);
-  if (clue.re === 0) return `${clue.im}i`;
-  return `${clue.re}+${clue.im}i`;
+  let placed = 0;
+  let guard = 0;
+  while (placed < totalMines && guard < 1000000) {
+    guard += 1;
+    const r = Math.floor(rng() * total);
+    if (protect.has(r) || cells[r].mine) continue;
+    const roll = Math.floor(rng() * (totalMines - placed));
+    let type = -1;
+    let acc = 0;
+    for (let t = 0; t < 4; t += 1) {
+      acc += remaining[t];
+      if (roll < acc) {
+        type = t;
+        break;
+      }
+    }
+    if (type < 0) type = 0;
+    cells[r] = { ...cells[r], mine: true, mineType: type as MineType };
+    remaining[type as MineType] -= 1;
+    placed += 1;
+  }
+  return computeValues(cells, width, height);
 }
 
 /**
- * 翻开格子。0+0i 时向八邻域连片展开（0+0i 当且仅当八邻域无雷，与经典扫雷一致）。
- * 踩雷时翻开所有雷并返回 exploded 索引。
+ * 翻开格子。周围无雷（hasMineAround=false）时向八邻域连片展开；
+ * 踩雷时只翻开踩中的那颗雷并返回 exploded 索引。
  */
 export function revealCells(
   cells: Cell[],
@@ -127,9 +172,9 @@ export function revealCells(
   height: number,
 ): { next: Cell[]; exploded: number | null } {
   const startCell = cells[start];
-  if (startCell.revealed || startCell.mark === 1) return { next: cells, exploded: null };
+  if (startCell.revealed || startCell.flag !== 0) return { next: cells, exploded: null };
   if (startCell.mine) {
-    const next = cells.map((cell) => (cell.mine ? { ...cell, revealed: true } : cell));
+    const next = cells.map((cell, i) => (i === start ? { ...cell, revealed: true } : cell));
     return { next, exploded: start };
   }
   const next = cells.slice();
@@ -138,35 +183,44 @@ export function revealCells(
     const index = stack.pop();
     if (index === undefined) break;
     const cell = next[index];
-    if (cell.revealed || cell.mark === 1) continue;
+    if (cell.revealed || cell.flag !== 0) continue;
     next[index] = { ...cell, revealed: true };
-    if (cell.clue.re === 0 && cell.clue.im === 0) {
-      for (const n of neighbors(index, width, height, ALL_OFFSETS)) {
-        if (!next[n].revealed && next[n].mark !== 1) stack.push(n);
+    if (!cell.value.hasMineAround) {
+      for (const n of neighbors(index, width, height)) {
+        if (!next[n].revealed && next[n].flag === 0) stack.push(n);
       }
     }
   }
   return { next, exploded: null };
 }
 
-/** 和弦快开：已翻开的数字格周围旗数等于雷数（实部+虚部）时，翻开其余相邻格 */
+/** 和弦判据：周围 8 格旗帜的复数和的模长平方 == 该格显示的 N（k²·n） */
+export function matchCriterion(cells: Cell[], start: number, width: number, height: number): boolean {
+  const cell = cells[start];
+  if (!cell.revealed || cell.mine) return false;
+  let sr = 0;
+  let si = 0;
+  for (const n of neighbors(start, width, height)) {
+    const value = FLAG_VALUES[cells[n].flag];
+    if (value === null || value === undefined) continue;
+    sr += value.re;
+    si += value.im;
+  }
+  return sr * sr + si * si === displayN(cell.value);
+}
+
+/** 判据满足时翻开周围所有未插旗的格子（含连片展开） */
 export function chordCells(
   cells: Cell[],
   start: number,
   width: number,
   height: number,
 ): { next: Cell[]; exploded: number | null } {
-  const cell = cells[start];
-  if (!cell.revealed || cell.mine) return { next: cells, exploded: null };
-  const total = cell.clue.re + cell.clue.im;
-  if (total === 0) return { next: cells, exploded: null };
-  const around = neighbors(start, width, height, ALL_OFFSETS);
-  const flags = around.reduce((sum, n) => sum + (cells[n].mark === 1 ? 1 : 0), 0);
-  if (flags !== total) return { next: cells, exploded: null };
+  if (!matchCriterion(cells, start, width, height)) return { next: cells, exploded: null };
   let next = cells;
   let exploded: number | null = null;
-  for (const n of around) {
-    if (next[n].revealed || next[n].mark === 1) continue;
+  for (const n of neighbors(start, width, height)) {
+    if (next[n].revealed || next[n].flag !== 0) continue;
     const result = revealCells(next, n, width, height);
     next = result.next;
     if (result.exploded !== null) {

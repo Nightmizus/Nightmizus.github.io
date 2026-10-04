@@ -84,7 +84,7 @@ const websites: Website[] = [
     name: "Complexweeper",
     url: "mizusumi.com/Complexweeper",
     href: "https://mizusumi.com/Complexweeper/",
-    description: "复数扫雷 · 实部是正交雷数，虚部是斜角雷数",
+    description: "复数扫雷 · 雷分 ±1、±i 四种，线索是复数和的模长 k√n",
     repository: { label: "Nightmizus.github.io", href: "https://github.com/Nightmizus/Nightmizus.github.io" },
     owners: [{ name: "水澄Mizu", github: "https://github.com/Nightmizus" }],
     status: "在线",
