@@ -25,7 +25,7 @@ const contacts: Contact[] = [
 type WebsiteOwner = {
   name: string;
   github: string;
-  role?: "开发" | "维护";
+  role?: "开发" | "维护" | "开发与维护";
 };
 
 type Website = {
@@ -43,12 +43,11 @@ type Website = {
 
 const websites: Website[] = [
   {
-    name: "水澄Mizu的个人主页",
-    url: "mizusumi.com",
-    href: "https://mizusumi.com",
-    description: "一些有意思的网站及项目的导航，也是Mizusumi大部分创意的集锦",
-    repository: { label: "Nightmizus.github.io", href: "https://github.com/Nightmizus/Nightmizus.github.io" },
-    owners: [{ name: "水澄Mizu", github: "https://github.com/Nightmizus" }],
+    name: "炼丹社AIchemy",
+    url: "aichemy.club",
+    href: "https://aichemy.club",
+    description: "超硬核AI社团@sdsz",
+    owners: [{ name: "水澄Mizu", github: "https://github.com/Nightmizus", role: "开发与维护" }],
     status: "在线",
   },
   {
@@ -79,6 +78,15 @@ const websites: Website[] = [
     description: "eletypes+，优化WPM计算方式，增加无限模式，支持隐藏中文/拼音",
     repository: { label: "eletypes-frontend", href: "https://github.com/PrintfCow/eletypes-frontend" },
     owners: [{ name: "PrintfCow", github: "https://github.com/PrintfCow" }],
+    status: "在线",
+  },
+  {
+    name: "Complexweeper",
+    url: "mizusumi.com/Complexweeper",
+    href: "https://mizusumi.com/Complexweeper/",
+    description: "复数扫雷 · 构思中的扫雷变体",
+    repository: { label: "Nightmizus.github.io", href: "https://github.com/Nightmizus/Nightmizus.github.io" },
+    owners: [{ name: "水澄Mizu", github: "https://github.com/Nightmizus" }],
     status: "在线",
   },
 ];
