@@ -47,6 +47,7 @@ const websites: Website[] = [
     url: "aichemy.club",
     href: "https://aichemy.club",
     description: "超硬核AI社团@sdsz",
+    repository: { label: "aichemy.club", href: "https://github.com/Nightmizus/aichemy.club" },
     owners: [{ name: "水澄Mizu", github: "https://github.com/Nightmizus", role: "开发与维护" }],
     status: "在线",
   },
@@ -100,6 +101,7 @@ const repositories = [
   { id: "R.06", name: "MizuLauncherAura", type: "C# / DESKTOP", text: "MizuLauncher 的 Aura 版本，探索 AI 驱动的 Minecraft 启动器体验。", href: "https://github.com/Nightmizus/MizuLauncherAura" },
   { id: "R.07", name: "MizuLauncher", type: "C# / DESKTOP", text: "采用现代界面设计的 Minecraft 启动器，也是 MizuLauncher 系列的基础版本。", href: "https://github.com/Nightmizus/MizuLauncher" },
   { id: "R.08", name: "musicmizu", type: "WEB / MUSIC", text: "Music Mizu 的社区平台仓库，让用户可以自由上传、浏览与分享音乐。", href: "https://github.com/shizwd/musicmizu" },
+  { id: "R.09", name: "aichemy.club", type: "HTML / WEB", text: "炼丹社 AIchemy 官网，像素科技实验室与 3D 八卦炉首页。", href: "https://github.com/Nightmizus/aichemy.club" },
 ];
 
 const friendLinks = [
